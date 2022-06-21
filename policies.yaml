@@ -1,0 +1,87 @@
+---
+apiVersion: policies.kubewarden.io/v1
+kind: AdmissionPolicy
+metadata:
+  name: psp-capabilities
+  namespace: default
+spec:
+  module: ghcr.io/kubewarden/policies/capabilities-psp:v0.1.9
+  settings:
+    allowed_capabilities: ["CHOWN"]
+    required_drop_capabilities: ["NET_ADMIN"]
+  rules:
+    - apiGroups:
+        - ""
+      apiVersions:
+        - v1
+      resources:
+        - pods
+      operations:
+        - CREATE
+  mutating: true
+---
+apiVersion: policies.kubewarden.io/v1
+kind: AdmissionPolicy
+metadata:
+  name: psp-user-group
+  namespace: default
+spec:
+  module: ghcr.io/kubewarden/policies/user-group-psp:v0.2.0
+  settings:
+    run_as_user:
+      rule: RunAsAny
+    run_as_group:
+      rule: RunAsAny
+    supplemental_groups:
+      rule: RunAsAny
+  rules:
+    - apiGroups:
+        - ""
+      apiVersions:
+        - v1
+      resources:
+        - pods
+      operations:
+        - CREATE
+  mutating: true
+---
+apiVersion: policies.kubewarden.io/v1
+kind: AdmissionPolicy
+metadata:
+  name: psp-apparmor
+  namespace: default
+spec:
+  module: ghcr.io/kubewarden/policies/apparmor-psp:v0.1.9
+  settings:
+    allowed_profiles:
+    - runtime/default
+  rules:
+    - apiGroups:
+        - ""
+      apiVersions:
+        - v1
+      resources:
+        - pods
+      operations:
+        - CREATE
+        - UPDATE
+  mutating: false
+---
+apiVersion: policies.kubewarden.io/v1
+kind: AdmissionPolicy
+metadata:
+  name: policy-echo
+  namespace: default
+spec:
+  module: ghcr.io/kubewarden/policies/echo:latest
+  settings: {}
+  rules:
+    - apiGroups:
+        - ""
+      apiVersions:
+        - v1
+      resources:
+        - "*"
+      operations:
+        - "*"
+  mutating: false
