@@ -4,7 +4,7 @@
   "metadata": {
     "name": "nginx-deployment-blocked",
     "annotations": {
-      "io.kubewarden.policy.echo": "true"
+      "io.kubewarden.policy.echo.create": "true"
     }
   },
   "spec": {
