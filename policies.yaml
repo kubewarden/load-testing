@@ -77,7 +77,7 @@ spec:
   settings: {}
   rules:
     - apiGroups:
-        - ""
+        - "apps"
       apiVersions:
         - v1
       resources:
