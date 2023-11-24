@@ -1,0 +1,9 @@
+apiVersion: 1
+
+datasources:
+  - name: k6
+    uid: P1D92AD4B6987FA03
+    type: influxdb
+    url: http://influxdb:8086
+    jsonData:
+      dbName: k6
