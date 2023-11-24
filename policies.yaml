@@ -1,87 +1,79 @@
----
-apiVersion: policies.kubewarden.io/v1
-kind: AdmissionPolicy
-metadata:
-  name: psp-capabilities
-  namespace: default
-spec:
-  module: ghcr.io/kubewarden/policies/capabilities-psp:v0.1.9
-  settings:
-    allowed_capabilities: ["CHOWN"]
-    required_drop_capabilities: ["NET_ADMIN"]
-  rules:
-    - apiGroups:
-        - ""
-      apiVersions:
-        - v1
-      resources:
-        - pods
-      operations:
-        - CREATE
-  mutating: true
----
-apiVersion: policies.kubewarden.io/v1
-kind: AdmissionPolicy
-metadata:
-  name: psp-user-group
-  namespace: default
-spec:
-  module: ghcr.io/kubewarden/policies/user-group-psp:v0.2.0
-  settings:
-    run_as_user:
-      rule: RunAsAny
-    run_as_group:
-      rule: RunAsAny
-    supplemental_groups:
-      rule: RunAsAny
-  rules:
-    - apiGroups:
-        - ""
-      apiVersions:
-        - v1
-      resources:
-        - pods
-      operations:
-        - CREATE
-  mutating: true
----
-apiVersion: policies.kubewarden.io/v1
-kind: AdmissionPolicy
-metadata:
-  name: psp-apparmor
-  namespace: default
-spec:
-  module: ghcr.io/kubewarden/policies/apparmor-psp:v0.1.9
-  settings:
-    allowed_profiles:
-    - runtime/default
-  rules:
-    - apiGroups:
-        - ""
-      apiVersions:
-        - v1
-      resources:
-        - pods
-      operations:
-        - CREATE
-        - UPDATE
-  mutating: false
----
-apiVersion: policies.kubewarden.io/v1
-kind: AdmissionPolicy
-metadata:
-  name: policy-echo
-  namespace: default
-spec:
-  module: ghcr.io/kubewarden/policies/echo:latest
+pod-privileged-protect-mode:
+  url: ghcr.io/kubewarden/tests/pod-privileged:v0.2.1
+  policyMode: protect
+  allowedToMutate: false
   settings: {}
-  rules:
-    - apiGroups:
-        - "apps"
-      apiVersions:
-        - v1
-      resources:
-        - "*"
-      operations:
-        - "*"
-  mutating: false
+
+pod-privileged-monitor-mode:
+  url: ghcr.io/kubewarden/tests/pod-privileged:v0.2.1
+  policyMode: monitor
+  allowedToMutate: false
+  settings: {}
+
+sleep:
+  url: ghcr.io/kubewarden/tests/sleeping-policy:v0.1.0
+  policyMode: protect
+  allowedToMutate: false
+  settings:
+    sleepMilliseconds: 2000
+
+disallow-service-loadbalancer:
+  url: ghcr.io/kubewarden/tests/disallow-service-loadbalancer:v0.1.5
+  policyMode: protect
+  allowedToMutate: false
+
+flux:
+  url: ghcr.io/kubewarden/tests/go-wasi-template:v0.1.0
+  policyMode: protect
+  allowedToMutate: true
+  settings:
+    requiredAnnotations:
+      "fluxcd.io/cat": "felix"
+
+raw-validation:
+  url: ghcr.io/kubewarden/tests/raw-validation-policy:v0.1.0
+  settings:
+    validUsers:
+      - "tonio"
+      - "wanda"
+    validActions:
+      - "eats"
+      - "likes"
+    validResources:
+      - "banana"
+      - "hay"
+
+raw-mutation:
+  url: ghcr.io/kubewarden/tests/raw-mutation-policy:v0.1.0
+  allowedToMutate: true
+  settings:
+    forbiddenResources:
+      - "banana"
+      - "carrot"
+    defaultResource: "hay"
+
+raw-validation-opa:
+  url: ghcr.io/kubewarden/tests/raw-validation-opa-policy:v0.1.0
+  settings: {}
+
+raw-validation-wasi:
+  url: ghcr.io/kubewarden/tests/raw-validation-wasi-policy:v0.1.0
+  settings:
+    validUsers:
+      - "tonio"
+      - "wanda"
+    validActions:
+      - "eats"
+      - "likes"
+    validResources:
+      - "banana"
+      - "hay"
+
+raw-mutation-wasi:
+  url: ghcr.io/kubewarden/tests/raw-mutation-wasi-policy:v0.1.0
+  allowedToMutate: true
+  settings:
+    forbiddenResources:
+      - "banana"
+      - "carrot"
+    defaultResource: "hay"
