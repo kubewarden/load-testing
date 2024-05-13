@@ -1,0 +1,18 @@
+[package]
+name = "wapc-context-aware"
+version = "0.1.0"
+authors = ["Flavio Castelli <fcastelli@suse.com>"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+k8s-openapi = { version = "0.22.0", default_features = false, features = [
+  "v1_29",
+] }
+kubewarden-policy-sdk = "0.10.1"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
