@@ -1,0 +1,21 @@
+apiVersion: policies.kubewarden.io/v1
+kind: AdmissionPolicy
+metadata:
+  name: echo
+  namespace: default
+spec:
+  module: "registry://ghcr.io/kubewarden/policies/echo:latest"
+  settings: {}
+  rules:
+    - apiGroups:
+        - "*"
+      apiVersions:
+        - "*"
+      resources:
+        - "*"
+      operations:
+        - CREATE
+        - UPDATE
+        - DELETE
+        - CONNECT
+  mutating: false

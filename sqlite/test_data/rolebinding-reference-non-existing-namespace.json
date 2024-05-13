@@ -1,0 +1,86 @@
+{
+  "dryRun": false,
+  "kind": {
+    "group": "rbac.authorization.k8s.io",
+    "kind": "RoleBinding",
+    "version": "v1"
+  },
+  "name": "read-pods",
+  "namespace": "default",
+  "object": {
+    "apiVersion": "rbac.authorization.k8s.io/v1",
+    "kind": "RoleBinding",
+    "metadata": {
+      "annotations": {
+        "io.kubewarden.policy.echo.create": "true",
+        "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{\"io.kubewarden.policy.echo.create\":\"true\"},\"name\":\"read-pods\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"pod-reader\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"tenant-a\",\"namespace\":\"tenant-a-homebase\"}]}\n"
+      },
+      "creationTimestamp": "2024-03-04T09:32:16Z",
+      "managedFields": [
+        {
+          "apiVersion": "rbac.authorization.k8s.io/v1",
+          "fieldsType": "FieldsV1",
+          "fieldsV1": {
+            "f:metadata": {
+              "f:annotations": {
+                ".": {},
+                "f:io.kubewarden.policy.echo.create": {},
+                "f:kubectl.kubernetes.io/last-applied-configuration": {}
+              }
+            },
+            "f:roleRef": {},
+            "f:subjects": {}
+          },
+          "manager": "kubectl-client-side-apply",
+          "operation": "Update",
+          "time": "2024-03-04T09:32:16Z"
+        }
+      ],
+      "name": "read-pods",
+      "namespace": "default",
+      "uid": "01dd43b1-a05b-45c9-acb5-a89f4a0a9d55"
+    },
+    "roleRef": {
+      "apiGroup": "rbac.authorization.k8s.io",
+      "kind": "Role",
+      "name": "pod-reader"
+    },
+    "subjects": [
+      {
+        "kind": "ServiceAccount",
+        "name": "tenant-a",
+        "namespace": "tenant-a-homebase"
+      }
+    ]
+  },
+  "operation": "CREATE",
+  "options": {
+    "apiVersion": "meta.k8s.io/v1",
+    "fieldManager": "kubectl-client-side-apply",
+    "fieldValidation": "Strict",
+    "kind": "CreateOptions"
+  },
+  "requestKind": {
+    "group": "rbac.authorization.k8s.io",
+    "kind": "RoleBinding",
+    "version": "v1"
+  },
+  "requestResource": {
+    "group": "rbac.authorization.k8s.io",
+    "resource": "rolebindings",
+    "version": "v1"
+  },
+  "resource": {
+    "group": "rbac.authorization.k8s.io",
+    "resource": "rolebindings",
+    "version": "v1"
+  },
+  "uid": "d1cef2cd-b56c-4d8d-8fa0-f45a20beb2f7",
+  "userInfo": {
+    "groups": [
+      "system:masters",
+      "system:authenticated"
+    ],
+    "username": "minikube-user"
+  }
+}
