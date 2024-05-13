@@ -1,0 +1,48 @@
+{
+  "list-all": {
+    "url": "file:///home/flavio/hacking/kubernetes/kubewarden/load-testing/policies/wapc-context-aware/annotated-policy.wasm",
+    "policyMode": "protect",
+    "allowedToMutate": false,
+    "contextAwareResources": [
+      {
+        "apiVersion": "rbac.authorization.k8s.io/v1",
+        "kind": "RoleBinding"
+      }
+    ],
+    "settings": {
+      "queryType": {
+        "type": "listAll"
+      }
+    },
+  },
+  "get-one": {
+    "url": "file:///home/flavio/hacking/kubernetes/kubewarden/load-testing/policies/wapc-context-aware/annotated-policy.wasm",
+    "policyMode": "protect",
+    "allowedToMutate": false,
+    "contextAwareResources": [
+      {
+        "apiVersion": "rbac.authorization.k8s.io/v1",
+        "kind": "RoleBinding"
+      }
+    ],
+    "settings": {
+      "queryType": {
+        "type": "getOne",
+        "name": "example-role-binding-9987",
+        "namespace": "default"
+      },
+    },
+  },
+  "gatekeeper-always-happy": {
+    "url": "file:///home/flavio/hacking/kubernetes/kubewarden/load-testing/policies/gatekeeper-always-happy/annotated-policy.wasm",
+    "policyMode": "protect",
+    "allowedToMutate": false,
+    "contextAwareResources": [
+      {
+        "apiVersion": "rbac.authorization.k8s.io/v1",
+        "kind": "RoleBinding"
+      }
+    ],
+    "settings": {},
+  },
+}
