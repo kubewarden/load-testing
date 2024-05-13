@@ -1,0 +1,58 @@
+# Kubewarden Artifacthub Package config
+#
+# Use this config to submit the policy to https://artifacthub.io.
+#
+# This config can be saved to its default location with:
+#   kwctl scaffold artifacthub > artifacthub-pkg.yml 
+version: 0.0.1-unreleased-22-g60464af
+name: policy-name
+displayName: Policy Name
+createdAt: 2024-03-05T15:20:04.291483214Z
+description: Short description
+license: Apache-2.0
+homeURL: https://github.com/yourorg/policy-name
+containersImages:
+- name: policy
+  image: ghcr.io/yourorg/policies/policy-name:v0.0.1-unreleased-22-g60464af
+keywords:
+- pod
+- cool policy
+- kubewarden
+links:
+- name: policy
+  url: https://github.com/yourorg/policy-name/releases/download/v0.0.1-unreleased-22-g60464af/policy.wasm
+- name: source
+  url: https://github.com/yourorg/policy-name
+install: |
+  The policy can be obtained using [`kwctl`](https://github.com/kubewarden/kwctl):
+  ```console
+  kwctl pull ghcr.io/yourorg/policies/policy-name:v0.0.1-unreleased-22-g60464af
+  ```
+  Then, generate the policy manifest and tune it to your liking. For example:
+  ```console
+  kwctl scaffold manifest -t ClusterAdmissionPolicy registry://ghcr.io/yourorg/policies/policy-name:v0.0.1-unreleased-22-g60464af
+  ```
+maintainers:
+- name: Author name
+  email: author-email@example.com
+provider:
+  name: kubewarden
+recommendations:
+- url: https://artifacthub.io/packages/helm/kubewarden/kubewarden-controller
+annotations:
+  kubewarden/contextAwareResources: |
+    - apiVersion: v1
+      kind: Namespace
+  kubewarden/mutation: 'false'
+  kubewarden/resources: Pod
+  kubewarden/rules: |
+    - apiGroups:
+      - rbac.authorization.k8s.io
+      apiVersions:
+      - v1
+      resources:
+      - rolebindings
+      - clusterrolebindings
+      operations:
+      - CREATE
+      - UPDATE
