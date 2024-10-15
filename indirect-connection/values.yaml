@@ -18,5 +18,5 @@ loadtest:
 
 image:
   repository: locustio/locust
-  tag: 2.31.8
+  tag: 2.32.0
   pullPolicy: IfNotPresent
